@@ -82,6 +82,8 @@ const db = require('asynqlite');
     await db.finalize(stmt);
     ```
     > Note: You don't have to `await` each `stmt.run()` because the `await finalize()` effectivly does this.
+- `db.finalize(stmt)` - finalizes the passed statement
+  - See `db.prepare(sql)` for example usage.
 - `db.close()`
   - Closes the database handle. (happens automatically if you don't do it explicitly)
 
