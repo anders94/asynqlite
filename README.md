@@ -1,8 +1,7 @@
 # asynqlite
 
-Simple async/await wrapper for SQLite. `asynqlite` uses `sqlite3` behind the scenes adding a wrapper
-allowing async/await operation. It also greatly simplifies the the API so while it extends what
-`sqlite3` does, the API is significantly different.
+Simple async/await wrapper for SQLite. Uses `sqlite3` behind the scenes adding a wrapper
+allowing async/await operation. It also greatly simplifies the the API.
 
 ## Install
 
@@ -60,26 +59,28 @@ const db = require('asynqlite');
 - `db.run(sql (, [param, ...]))` - returns an array of results (if any)
   - `sql` is the SQL statement in text to be executed.
   - The optional array of `param` values will be substituted for `?` in the SQL.
-    > Example: set `bar` equal to `a` where baz is `b` in thr table `foo`
-    > ```await db.run('UPDATE foo SET bar = ? WHERE baz = ?', [ 'a', 'b' ])```
+    Example: set `bar` equal to `a` where baz is `b` in thr table `foo`
+    ```js
+    await db.run('UPDATE foo SET bar = ? WHERE baz = ?', [ 'a', 'b' ]);
+    ```
   - Returns an array of results. (if any)
-    > Example: `SELECT` all the rows from the table `foo`:
-    > ```js
-      const res = await db.run('SELECT * FROM foo');
-      console.log(res);
-      ```
+    Example: `SELECT` all the rows from the table `foo`:
+    ```js
+    const res = await db.run('SELECT * FROM foo');
+    console.log(res);
+    ```
 - `db.prepare(sql)` - returns a statement object
   - `sql` is the SQL statement in text to be executed. Parameter substitution (values of which
     are to be supplied later by using the returned statement object) are designated with `?`
     in the SQL statement.
-    > Example: Prepare an INSERT statement and execute it with three different sets of values:
-    > ```js
-      const stmt = await db.prepare('INSERT INTO foo (a, b) VALUES (?, ?)');
-      stmt.run('x', 1);
-      stmt.run('y', 2);
-      stmt.run('z', 3);
-      await db.finalize(stmt);
-      ```
+    Example: Prepare an INSERT statement and execute it with three different sets of values:
+    ```js
+    const stmt = await db.prepare('INSERT INTO foo (a, b) VALUES (?, ?)');
+    stmt.run('x', 1);
+    stmt.run('y', 2);
+    stmt.run('z', 3);
+    await db.finalize(stmt);
+    ```
     > Note: You don't have to await each statement because the `finalize()` effectivly does this.
 - `db.close()`
   - Closes the database handle.
