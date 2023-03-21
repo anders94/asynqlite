@@ -1,19 +1,18 @@
-const sqlite = require('../lib');
+const db = require('asynqlite');
 
 (async () => {
-    sqlite.open(':memory:');
+    db.open(':memory:');
 
-    await sqlite.run('CREATE TABLE foo (bar TEXT)');
+    await db.run('CREATE TABLE foo (bar TEXT)');
 
-    const stmt = await sqlite.prepare('INSERT INTO foo VALUES (?)');
+    const stmt = await db.prepare('INSERT INTO foo VALUES (?)');
     for (let i = 0; i < 10; i++) {
         stmt.run('test ' + i);
     }
-    await sqlite.finalize(stmt);
+    await db.finalize(stmt);
 
-    const res = await sqlite.run('SELECT rowid AS id, bar FROM foo');
+    const res = await db.run('SELECT rowid AS id, bar FROM foo');
     console.log(res);
 
-    await sqlite.close();
-
+    await db.close();
 })();
