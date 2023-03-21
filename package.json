@@ -1,27 +1,30 @@
 {
-  "name": "asynqlite",
-  "version": "0.0.1",
-  "description": "Async / await wrapper for sqlite3",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anders94/asynqlite.git"
-  },
-  "keywords": [
-    "sqlite",
-    "sqlite3",
-    "async"
-  ],
-  "author": "Anders Brownworth",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/anders94/asynqlite/issues"
-  },
-  "homepage": "https://github.com/anders94/asynqlite#readme",
-  "dependencies": {
-    "sqlite3": "^5.1.6"
-  }
+    "name": "asynqlite",
+    "version": "0.0.1",
+    "description": "Async / await wrapper for sqlite3",
+    "main": "index.js",
+    "directories": {
+	"lib": "lib"
+    },
+    "scripts": {
+	"test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+	"type": "git",
+	"url": "git+https://github.com/anders94/asynqlite.git"
+    },
+    "keywords": [
+	"sqlite",
+	"sqlite3",
+	"async"
+    ],
+    "author": "Anders Brownworth",
+    "license": "MIT",
+    "bugs": {
+	"url": "https://github.com/anders94/asynqlite/issues"
+    },
+    "homepage": "https://github.com/anders94/asynqlite#readme",
+    "dependencies": {
+	"sqlite3": "^5.1.6"
+    }
 }
