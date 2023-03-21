@@ -1,7 +1,7 @@
 # asynqlite
 
-Simple async/await wrapper for SQLite. Uses `sqlite3` behind the scenes adding a wrapper
-allowing async/await operation. It also greatly simplifies the the API.
+Simple async/await wrapper for SQLite. Uses `sqlite3` behind the scenes and
+greatly simplifies the the API.
 
 ## Install
 
@@ -25,7 +25,7 @@ const db = require('asynqlite');
 })();
 ```
 
-Use a prepared statement: (you don't need to `await` the statements)
+Use a prepared statement:
 
 ```js
 const db = require('asynqlite');
@@ -50,16 +50,16 @@ const db = require('asynqlite');
 
 ## API
 - `db.open(path, options)`
-  - `path` is a local filesystem path and filename for persistant storage, nothing
-    for filesystem based non-persistant storage or `:memory:` for a memory based
-    non persistant database.
+  - `path` is a local path and filename for persistant storage, `:memory:` for a memory
+    based non persistant database or `undefined` for a filesystem based non-persistant
+    storage.
   - `options` are one or more pipe delineated `db.OPEN_READONLY`, `db.OPEN_READWRITE`,
     `db.OPEN_CREATE`, `db.OPEN_FULLMUTEX`, `db.OPEN_URI`, `db.OPEN_SHAREDCACHE`,
     `db.OPEN_PRIVATECACHE`. The default is `OPEN_READWRITE | OPEN_CREATE | OPEN_FULLMUTEX`.
 - `db.run(sql (, [param, ...]))` - returns an array of results (if any)
   - `sql` is the SQL statement in text to be executed.
-  - The optional array of `param` values will be substituted for `?` in the SQL.
-    Example: set `bar` equal to `a` where baz is `b` in thr table `foo`
+  - Optional array of `param` values which will be substituted for `?` in the SQL.
+    Example: set `bar` equal to `a` where baz is `b` in the table `foo`
     ```js
     await db.run('UPDATE foo SET bar = ? WHERE baz = ?', [ 'a', 'b' ]);
     ```
@@ -73,7 +73,7 @@ const db = require('asynqlite');
   - `sql` is the SQL statement in text to be executed. Parameter substitution (values of which
     are to be supplied later by using the returned statement object) are designated with `?`
     in the SQL statement.
-    Example: Prepare an INSERT statement and execute it with three different sets of values:
+    Example: Prepare an `INSERT` statement and execute it with three different sets of values:
     ```js
     const stmt = await db.prepare('INSERT INTO foo (a, b) VALUES (?, ?)');
     stmt.run('x', 1);
@@ -81,6 +81,14 @@ const db = require('asynqlite');
     stmt.run('z', 3);
     await db.finalize(stmt);
     ```
-    > Note: You don't have to await each statement because the `finalize()` effectivly does this.
+    > Note: You don't have to `await` each `stmt.run()` because the `await finalize()` effectivly does this.
 - `db.close()`
-  - Closes the database handle.
+  - Closes the database handle. (happens automatically if you don't do it explicitly)
+
+## More Info
+
+See the [examples](examples/) directory for more.
+
+## License
+
+MIT
