@@ -1,6 +1,6 @@
 # asynqlite
 
-Simple async/await wrapper for SQLite. Uses `sqlite3` behind the scenes and
+Simple Node.js async/await wrapper for SQLite. Uses `sqlite3` behind the scenes and
 greatly simplifies the the API.
 
 ## Install
