@@ -19,7 +19,25 @@ const db = require('asynqlite');
     await db.open(':memory:');
 
     const res = await db.run('SELECT datetime() AS foo');
-    console.log(res[0].foo);
+    console.log(res[0].foo);    // outputs today's date
+
+    db.close();
+})();
+```
+
+Pass parameters:
+
+```js
+const db = require('asynqlite');
+
+(async () => {
+    await db.open(':memory:');
+
+    const res = await db.run('SELECT ? + ? as onePlusTwo', [1, 2]);
+    console.log(res[0].onePlusTwo);
+
+    // output:
+    // 3
 
     db.close();
 })();
@@ -36,13 +54,22 @@ const db = require('asynqlite');
     await db.run('CREATE TABLE foo (bar TEXT)');
 
     const stmt = await db.prepare('INSERT INTO foo VALUES (?)');
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         stmt.run('test ' + i);
     }
     await db.finalize(stmt);
 
     const res = await db.run('SELECT rowid AS id, bar FROM foo');
     console.log(res);
+
+    // output:
+    // [
+    //   { id: 1, bar: 'test 0' },
+    //   { id: 2, bar: 'test 1' },
+    //   { id: 3, bar: 'test 2' },
+    //   { id: 4, bar: 'test 3' },
+    //   { id: 5, bar: 'test 4' }
+    // ]
 
     await db.close();
 })();
